@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
+import './styles/normilize.css';
+import GlobalStyles from './styles';
 
 ReactDOM.render(
   <React.StrictMode>
     <>
+      <GlobalStyles />
       <App />
     </>
 
