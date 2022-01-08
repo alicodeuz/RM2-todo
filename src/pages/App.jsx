@@ -7,6 +7,7 @@ export default function App() {
   return (
     <div>
       <Header />
+      <Sidebar />
     </div>
   )
 }

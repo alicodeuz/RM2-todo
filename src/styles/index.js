@@ -11,6 +11,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: ${COLORS.lightGrey};
+    background-color: #fff;
+    color: ${COLORS.black};
   }
 `;
