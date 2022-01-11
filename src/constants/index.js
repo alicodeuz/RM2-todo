@@ -14,5 +14,5 @@ export const COLORS = {
 export const STYLING_CONFIGS = {
   ROOT_SIZE: 16,
   HEADER_HEIGHT: 48,
-  SIDEBAR_WIDTH: 250,
+  SIDEBAR_WIDTH: 280,
 }

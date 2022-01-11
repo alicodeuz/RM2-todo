@@ -9,12 +9,37 @@ export const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
   border-right: ${pxToRem(1)} solid ${COLORS.iconGrey};
+
   .menu-list {
     display: flex;
     flex-direction: column;
     margin-top: ${pxToRem(20)};
     margin-bottom: auto;
   }
+
+  .footer-menu {
+    margin: 0;
+    flex-direction: row;
+    border-top: ${pxToRem(1)} solid ${COLORS.iconGrey};
+    justify-content: space-between;
+
+    .menu-list-item {
+      height: ${pxToRem(48)};
+      width: auto;
+    }
+    span {
+      display: none;
+    }
+    a.active {
+      background-color: transparent;
+      color: ${COLORS.black};
+    }
+    a.active::after {
+      content: unset;
+
+    }
+  }
+
   .menu-list-item {
     padding: ${pxToRem(20)};
     display: flex;
@@ -30,5 +55,23 @@ export const StyledSidebar = styled.aside`
     span {
       margin-left: ${pxToRem(5)};
     }
+
+    &.active {
+      background-color: ${COLORS.iconGrey};
+      position: relative;
+      color: ${COLORS.blue};
+      font-weight: 500;
+
+      &::after {
+        content: '';
+        width: ${pxToRem(7)};
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: ${COLORS.blue};
+      }
+    }
   }
+  
 `;

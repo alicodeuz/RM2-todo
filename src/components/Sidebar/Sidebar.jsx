@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { VscMenu, VscCalendar } from 'react-icons/vsc';
 import { BsStar, BsSun } from 'react-icons/bs';
 import { IoHomeOutline } from 'react-icons/io5';
@@ -37,27 +37,27 @@ const MENU_LIST = [
 const FOOTER_MENU_LIST = [
   {
     title: 'My Day',
-    path: '/my-day',
+    path: '#/my-day',
     icon: <BsSun />
   },
   {
     title: 'Important',
-    path: '/important',
+    path: '#/important',
     icon: <BsStar />
   },
   {
     title: 'Planned',
-    path: '/planned',
+    path: '#/planned',
     icon: <VscCalendar />
   },
   {
     title: 'Assigned to me',
-    path: '/assigned-to-me',
+    path: '#/assigned-to-me',
     icon: <AiOutlineUser />
   },
   {
     title: 'Tasks',
-    path: '/tasks',
+    path: '#/tasks',
     icon: <IoHomeOutline />
   },
 ]
@@ -71,22 +71,22 @@ export default function Sidebar() {
         {
           MENU_LIST.map(item => {
             return (
-              <Link to={item.path} className="menu-list-item" key={item.title}>
+              <NavLink to={item.path} className="menu-list-item" key={item.title}>
                 {item.icon}
                 <span>{item.title}</span>
-              </Link>
+              </NavLink>
             )
           })
         }
       </div>
-      <div className='menu-list'>
+      <div className='menu-list footer-menu'>
         {
           FOOTER_MENU_LIST.map(item => {
             return (
-              <Link to={item.path} className="menu-list-item" key={item.title}>
+              <NavLink to={item.path} className="menu-list-item" key={item.title}>
                 {item.icon}
                 <span>{item.title}</span>
-              </Link>
+              </NavLink>
             )
           })
         }
