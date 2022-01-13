@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
 import { StyledTodos } from './ToDos.style';
 import AddTodo from '../AddToDo';
 import axios from '../../utils/axios';
@@ -9,8 +8,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 export default function ToDos() {
-  const location = useLocation();
-  const params = useParams();
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
 
