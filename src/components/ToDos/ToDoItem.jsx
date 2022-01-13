@@ -4,6 +4,7 @@ import { StyledToDoItem } from './ToDos.style';
 
 export default function ToDoItem(props) {
   const { title, is_important, is_completed, collection_id, category, content, due_date } = props.data;
+  console.log(props.data)
   return (
     <StyledToDoItem className="todo-item">
       <div><input type="checkbox" /></div>
