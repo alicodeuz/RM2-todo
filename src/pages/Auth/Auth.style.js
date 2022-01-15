@@ -18,6 +18,9 @@ export const StyledSignIn = styled.div`
     max-height: ${pxToRem(450)};
     background-color: #fff;
   }
+  .sign-in__header img {
+    cursor: pointer;
+  }
   .sign-in__input-wrapper {
     margin-bottom: ${pxToRem(12)};
 

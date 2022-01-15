@@ -1,17 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import microsoft from '../../assets/images/microsoft.png';
 import { StyledSignIn } from './Auth.style';
 // import {useHistory} from 'react-router-dom'
 
 function SignIn() {
-  // let history =useHistory();
+  let navigate = useNavigate();
 
   return (
     <StyledSignIn>
       <div className="signin">
         <div className='sign-in__header'>
-          <img src={microsoft} alt="microsoft" />
+          <img src={microsoft} alt="microsoft" onClick={() => navigate('/')} />
           <h2>Sign in</h2>
         </div>
         <div className="sign-in__body">
