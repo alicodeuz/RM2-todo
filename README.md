@@ -9,3 +9,5 @@
 | PUT	   | /api/todos/:id  |	Update an entry          |
 | DELETE | /api/todos/:id  |	Delete an entry          |
 
+
+## [Authentication API endpoints](https://docs.strapi.io/developer-docs/latest/guides/auth-request.html#introduction)
