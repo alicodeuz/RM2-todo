@@ -31,7 +31,7 @@ export default function ToDos() {
 
   return (
     <StyledTodos>
-      <h2>Todo name</h2>
+      <h2>Todo name by</h2>
       {
         loading ? 'Loading...' : <AddTodo />
       }
@@ -42,6 +42,7 @@ export default function ToDos() {
           return <ToDoItem key={id} data={{ ...attributes, id }} />
         })
       }
+
     </StyledTodos>
   )
 }
