@@ -11,12 +11,16 @@ const SignIn = lazy(() => import('./Auth/SignIn'));
 const Welcome = lazy(() => import('./Welcome/Welcome'));
 
 export default function App() {
-  const [user, setUser] = useState(() => JSON.parse(localStorage.user || "{}"));
-  const token = localStorage.token;
+  const [auth, setAuth] = useState(() => ({
+    user: JSON.parse(localStorage.user || "{}"),
+    token: localStorage.token
+  }));
+
+  const { token, user } = auth;
 
   const signOut = () => {
     try {
-      setUser({});
+      setAuth({});
       localStorage.removeItem('token');
       localStorage.removeItem('user');
     } catch (error) {
@@ -44,7 +48,7 @@ export default function App() {
     <>
       <Suspense fallback="Loading...">
         <Routes>
-          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-in" element={<SignIn updateAuthData={setAuth} />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="*" element={<Welcome />} />
         </Routes>

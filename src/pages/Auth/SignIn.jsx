@@ -6,12 +6,12 @@ import microsoft from '../../assets/images/microsoft.png';
 import { StyledSignIn } from './Auth.style';
 // import {useHistory} from 'react-router-dom'
 
-function SignIn() {
+function SignIn({ updateAuthData }) {
   let navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
-    identifier: '',
-    password: ''
+    identifier: 'abdulkhamid@gmail.com',
+    password: 'smoothing'
   });
 
   const handleInputChange = (e) => {
@@ -35,7 +35,13 @@ function SignIn() {
           setLoading(false);
           localStorage.setItem('user', JSON.stringify(data.user))
           localStorage.setItem('token', data.jwt);
-          window.location.href = '/';
+          const userData = {
+            token: data.jwt,
+            user: data.user
+          }
+          console.log(userData)
+          updateAuthData(userData);
+          navigate('/');
         })
 
       } else {
