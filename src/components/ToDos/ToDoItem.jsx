@@ -55,7 +55,10 @@ export default function ToDoItem({ fetchTodos, data, handleRemoveTodo }) {
         }
       })
     } catch (error) {
-
+      Swal.fire({
+        icon: 'error',
+        text: JSON.stringify(error.response.data?.error?.message)
+      })
     }
   }
 
