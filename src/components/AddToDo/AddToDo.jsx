@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Swal from 'sweetalert2';
 import { StyledAddToDo } from './AddTodo.style';
 import axios from '../../utils/axios';
+import AppContext from '../../context/AppContext';
 
 export default function AddToDo({ fetchTodos, addNewTodo, hideInput }) {
   const [loading, setLoading] = useState(false);
+  const { user } = useContext(AppContext);
   const [todo, setTodo] = useState({
     title: '',
     content: '',
@@ -13,6 +15,7 @@ export default function AddToDo({ fetchTodos, addNewTodo, hideInput }) {
     is_completed: false,
     category: 'todo',
     collection_id: null,
+    user: null
   });
 
   const handleInputChange = (e) => {
@@ -29,7 +32,11 @@ export default function AddToDo({ fetchTodos, addNewTodo, hideInput }) {
     try {
       if (title.length) {
         setLoading(true);
-        const { data } = await axios.post('/todos', { data: todo });
+        const updateData = {
+          ...todo,
+          user: user.id
+        }
+        const { data } = await axios.post('/todos', { data: updateData });
         // await fetchTodos();
         addNewTodo(data.data);
         setLoading(false);

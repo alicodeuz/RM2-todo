@@ -1,7 +1,9 @@
-import React, { Suspense, useState, lazy, createContext } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { Suspense, useState, lazy, createContext, useEffect } from 'react';
+import { Route, Routes, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { StyledMainContenWrapper } from './App.style';
 import AppContext from '../context/AppContext';
+import { StyledMain } from '../components/Main/Main.style';
+import ToDos from '../components/ToDos';
 
 const Header = lazy(() => import('../components/Header/Header'));
 const Main = lazy(() => import('../components/Main'));
@@ -11,12 +13,23 @@ const SignIn = lazy(() => import('./Auth/SignIn'));
 const Welcome = lazy(() => import('./Welcome/Welcome'));
 
 export default function App() {
+  const url = useLocation();
+  const navigate = useNavigate();
+  console.log(url)
   const [auth, setAuth] = useState(() => ({
     user: JSON.parse(localStorage.user || "{}"),
     token: localStorage.token
   }));
 
   const { token, user } = auth;
+
+  // useEffect(() => {
+  //   const notAuthenticatedUrls = ['/sign-in', 'sign-up'];
+  //   if (token && notAuthenticatedUrls.includes(url.pathname)) {
+  //     navigate('/tasks');
+  //   }
+  // }, [url.pathname, token]);
+
 
   const signOut = () => {
     try {
@@ -32,11 +45,17 @@ export default function App() {
     return (
       <AppContext.Provider value={{ user, token, signOut }}>
         <Suspense fallback="Loading...">
+          {/* <Navigate to="/tasks" replace /> */}
           <div>
             <Header user={user} />
             <StyledMainContenWrapper>
               <Sidebar />
-              <Main />
+              <StyledMain>
+                <Routes>
+                  <Route path="/tasks/:name" element={<ToDos />} />
+                  <Route path="*" element={<Navigate to='/tasks/all' />} />
+                </Routes>
+              </StyledMain>
             </StyledMainContenWrapper>
           </div>
         </Suspense>

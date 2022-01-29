@@ -9,30 +9,31 @@ import { StyledSidebar } from './Sidebar.styles';
 
 const MENU_LIST = [
   {
+    title: 'Tasks',
+    path: '/tasks/all',
+    icon: <IoHomeOutline />
+  },
+  {
     title: 'My Day',
-    path: '/my-day',
+    path: '/tasks/my-day',
     icon: <BsSun />
   },
   {
     title: 'Important',
-    path: '/important',
+    path: '/tasks/important',
     icon: <BsStar />
   },
   {
-    title: 'Planned',
-    path: '/planned',
+    title: 'Completed',
+    path: '/tasks/completed',
     icon: <VscCalendar />
   },
-  {
-    title: 'Assigned to me',
-    path: '/assigned-to-me',
-    icon: <AiOutlineUser />
-  },
-  {
-    title: 'Tasks',
-    path: '/tasks',
-    icon: <IoHomeOutline />
-  },
+  // {
+  //   title: 'Assigned to me',
+  //   path: '/assigned-to-me',
+  //   icon: <AiOutlineUser />
+  // },
+
 ]
 const FOOTER_MENU_LIST = [
   {

@@ -8,9 +8,8 @@ import { pxToRem } from '../../utils';
 import AppContext from '../../context/AppContext';
 import { COLORS } from '../../constants';
 
-export default function Header() {
+export default function Header(props) {
   const context = useContext(AppContext);
-  console.log(context)
 
   return (
     <StyledHeader>

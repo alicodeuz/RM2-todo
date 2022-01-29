@@ -1,21 +1,50 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import qs from 'qs';
 import { StyledTodos } from './ToDos.style';
 import AddTodo from '../AddToDo';
 import axios from '../../utils/axios';
 
 import ToDoItem from './ToDoItem';
 import Loader from '../Loader/Loader';
+import AppContext from '../../context/AppContext';
 
 export default function ToDos() {
+  const params = useParams();
   const [todos, setTodos] = useState([]);
+  const [filteredTodos, setFilteredTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showInput, setShowInput] = useState(false);
+  const { user } = useContext(AppContext);
+
+  function filterByTodoType(todos) {
+    const todoType = params.name;
+    if (todoType === 'important') {
+      return todos.filter(item => {
+        return item.attributes.is_important
+      })
+    }
+    if (todoType === 'my-day') {
+      return todos.filter(item => {
+        const isSameDate = new Date().toLocaleDateString() === new Date(item.attributes.due_date).toLocaleDateString()
+        return isSameDate;
+      })
+    }
+    if (todoType === 'completed') {
+      return todos.filter(item => {
+        return item.attributes.is_completed;
+      })
+    }
+    return todos;
+  }
 
   const fetchTodos = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('/todos');
-      const { data: todos, meta: { pagination } } = data;
+      // const { data } = await axios.get('/todos?filters[title][$contains]=th');
+      const { data } = await axios.get(`/todos/?filters[user]=${user.id}&populate=user`);
+      // const { data } = await axios.get(`/todos/?filters[is_important]=true&filters[is_completed]=true`);
+      const { data: todos } = data;
       setTodos(todos);
       setLoading(false);
     } catch (error) {
@@ -38,7 +67,12 @@ export default function ToDos() {
 
   useEffect(() => {
     fetchTodos();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    const result = filterByTodoType(todos);
+    setFilteredTodos(result);
+  }, [todos, params.name]);
 
   return (
     <StyledTodos>
@@ -57,7 +91,7 @@ export default function ToDos() {
 
       <Loader loading={loading} />
       {
-        todos.map((item) => {
+        filteredTodos.map((item) => {
           const { id, attributes } = item;
           return (
             <ToDoItem

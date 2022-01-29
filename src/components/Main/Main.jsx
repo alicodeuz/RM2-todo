@@ -7,7 +7,7 @@ export default function Main({ user }) {
   return (
     <StyledMain>
       <Routes>
-        <Route path="/:name" element={<ToDos />} />
+        <Route index path="/:name" element={<ToDos />} />
       </Routes>
     </StyledMain>
   )

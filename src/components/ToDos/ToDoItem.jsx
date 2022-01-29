@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { BsStar, BsStarFill, BsTrash } from 'react-icons/bs';
 import Swal from 'sweetalert2';
 import AppContext from '../../context/AppContext';
@@ -6,7 +7,7 @@ import axios from '../../utils/axios';
 import { StyledToDoItem } from './ToDos.style';
 
 
-export default function ToDoItem({ fetchTodos, data, handleRemoveTodo }) {
+export default function ToDoItem({ data, fetchTodos, handleRemoveTodo }) {
   const { title, id, is_important, is_completed, collection_id, category, content, due_date } = data;
   const [isImportant, setIsImportant] = useState(is_important);
   const [isCompleted, setIsCompleted] = useState(is_completed);
@@ -35,6 +36,7 @@ export default function ToDoItem({ fetchTodos, data, handleRemoveTodo }) {
   const handleImportant = async () => {
     try {
       const { data } = await axios.put(`/todos/${id}`, { data: { is_important: !is_important } });
+      fetchTodos()
     } catch (error) {
       console.log(error)
     }
@@ -100,4 +102,20 @@ export default function ToDoItem({ fetchTodos, data, handleRemoveTodo }) {
     </StyledToDoItem>
 
   )
+}
+
+
+ToDoItem.propTypes = {
+  fetchTodos: PropTypes.func,
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.number,
+    is_important: PropTypes.bool,
+    is_completed: PropTypes.bool,
+    collection_id: PropTypes.number,
+    category: PropTypes.oneOf(['todo', 'education', 'sport', 'entertainment']),
+    content: PropTypes.string,
+    due_date: PropTypes.string
+  }).isRequired,
+  handleRemoveTodo: PropTypes.func
 }
