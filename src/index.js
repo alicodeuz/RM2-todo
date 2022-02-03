@@ -5,14 +5,17 @@ import App from './pages/App';
 import reportWebVitals from './reportWebVitals';
 import './styles/normilize.css';
 import GlobalStyles from './styles';
+import { Provider } from 'react-redux';
+import store from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <GlobalStyles />
-      <App />
-    </BrowserRouter>
-
+    <Provider store={store}>
+      <BrowserRouter>
+        <GlobalStyles />
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

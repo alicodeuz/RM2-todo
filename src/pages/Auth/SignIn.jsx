@@ -4,10 +4,12 @@ import Swal from 'sweetalert2';
 import axios from '../../utils/axios';
 import microsoft from '../../assets/images/microsoft.png';
 import { StyledSignIn } from './Auth.style';
+import { useDispatch } from 'react-redux';
 // import {useHistory} from 'react-router-dom'
 
 function SignIn({ updateAuthData }) {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     identifier: 'abdulkhamid@gmail.com',
@@ -39,6 +41,7 @@ function SignIn({ updateAuthData }) {
             token: data.jwt,
             user: data.user
           }
+          dispatch({ type: 'SIGN_IN', payload: userData });
           console.log(userData)
           updateAuthData(userData);
           navigate('/');

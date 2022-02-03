@@ -4,6 +4,7 @@ import { StyledMainContenWrapper } from './App.style';
 import AppContext from '../context/AppContext';
 import { StyledMain } from '../components/Main/Main.style';
 import ToDos from '../components/ToDos';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Header = lazy(() => import('../components/Header/Header'));
 const Main = lazy(() => import('../components/Main'));
@@ -14,8 +15,9 @@ const Welcome = lazy(() => import('./Welcome/Welcome'));
 
 export default function App() {
   const url = useLocation();
-  const navigate = useNavigate();
-  console.log(url)
+  const dispatch = useDispatch();
+  const store = useSelector(state => state.auth);
+  console.log(store)
   const [auth, setAuth] = useState(() => ({
     user: JSON.parse(localStorage.user || "{}"),
     token: localStorage.token
@@ -23,19 +25,12 @@ export default function App() {
 
   const { token, user } = auth;
 
-  // useEffect(() => {
-  //   const notAuthenticatedUrls = ['/sign-in', 'sign-up'];
-  //   if (token && notAuthenticatedUrls.includes(url.pathname)) {
-  //     navigate('/tasks');
-  //   }
-  // }, [url.pathname, token]);
-
-
   const signOut = () => {
     try {
       setAuth({});
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      dispatch({ type: 'SIGN_OUT' });
     } catch (error) {
       console.log(error)
     }
