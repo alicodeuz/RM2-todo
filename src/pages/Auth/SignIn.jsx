@@ -5,6 +5,7 @@ import axios from '../../utils/axios';
 import microsoft from '../../assets/images/microsoft.png';
 import { StyledSignIn } from './Auth.style';
 import { useDispatch } from 'react-redux';
+import { signInAction } from '../../store/auth/actions';
 // import {useHistory} from 'react-router-dom'
 
 function SignIn({ updateAuthData }) {
@@ -35,14 +36,11 @@ function SignIn({ updateAuthData }) {
           footer: `<a href="/">Home page</a>`
         }).then((value) => {
           setLoading(false);
-          localStorage.setItem('user', JSON.stringify(data.user))
-          localStorage.setItem('token', data.jwt);
           const userData = {
             token: data.jwt,
             user: data.user
           }
-          dispatch({ type: 'SIGN_IN', payload: userData });
-          console.log(userData)
+          dispatch(signInAction(userData));
           updateAuthData(userData);
           navigate('/');
         })

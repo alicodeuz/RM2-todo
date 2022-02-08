@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import axios from '../../utils/axios';
 import microsoft from '../../assets/images/microsoft.png';
 import { StyledSignUp } from './Auth.style';
+import { signUpAction } from '../../store/auth/actions';
 // import {useHistory} from 'react-router-dom'
 
 function SignUp() {
@@ -25,8 +26,8 @@ function SignUp() {
       const { email, password, username } = user;
       if (email && password && username) {
         setLoading(true);
-        const { data } = await axios.post('/auth/local/register', user);
-        console.log(data);
+        const a = await signUpAction(user);
+        console.log(a)
         Swal.fire({
           icon: 'success',
           title: 'Success',
@@ -34,8 +35,7 @@ function SignUp() {
           footer: `<a href="/">Home page</a>`
         });
         setLoading(false);
-        localStorage.setItem('user', JSON.stringify(data.user))
-        localStorage.setItem('token', data.jwt)
+
       } else {
         Swal.fire({
           icon: 'error',
@@ -44,7 +44,6 @@ function SignUp() {
       }
 
     } catch (error) {
-      console.log(error.response.data)
       Swal.fire({
         icon: 'error',
         text: error.response?.data?.error?.message || 'Something went wrong',

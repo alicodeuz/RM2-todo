@@ -1,3 +1,4 @@
+import { SEARCH, SIGN_IN, SIGN_OUT } from '../actionTypes';
 const initialState = {
   searchQuery: 'test',
   search: true
@@ -5,19 +6,19 @@ const initialState = {
 
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
-    case 'SEARCH': {
+    case SEARCH: {
       return {
         ...state,
         ...action.payload
       }
     }
-    case 'SIGN_IN': {
+    case SIGN_IN: {
       return {
         ...state,
         ...action.payload
       }
     }
-    case 'SIGN_OUT': {
+    case SIGN_OUT: {
       return initialState;
     }
     default: {

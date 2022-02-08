@@ -5,6 +5,7 @@ import AppContext from '../context/AppContext';
 import { StyledMain } from '../components/Main/Main.style';
 import ToDos from '../components/ToDos';
 import { useDispatch, useSelector } from 'react-redux';
+import { signOutAction } from '../store/auth/actions';
 
 const Header = lazy(() => import('../components/Header/Header'));
 const Main = lazy(() => import('../components/Main'));
@@ -14,10 +15,8 @@ const SignIn = lazy(() => import('./Auth/SignIn'));
 const Welcome = lazy(() => import('./Welcome/Welcome'));
 
 export default function App() {
-  const url = useLocation();
   const dispatch = useDispatch();
   const store = useSelector(state => state.auth);
-  console.log(store)
   const [auth, setAuth] = useState(() => ({
     user: JSON.parse(localStorage.user || "{}"),
     token: localStorage.token
@@ -30,7 +29,7 @@ export default function App() {
       setAuth({});
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      dispatch({ type: 'SIGN_OUT' });
+      dispatch(signOutAction());
     } catch (error) {
       console.log(error)
     }
